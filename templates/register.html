@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}Registracia{% endblock %}
+
+{% block content %}
+  <h2>Registrácia:</h2>
+  <hr>
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="field form-group row {% if form.username.errors %}has-danger{% endif %}">
+      <label for="id_username" class="col-2 col-form-label">Používateľské meno:</label>
+      {{ form.username }}
+    </div>
+    {% if form.username.errors %}
+      <small class="text-danger">
+      <ul class="list-unstyled">
+      {% for error in form.username.errors %}
+          <li>{{ error }}</li>
+      {% endfor %}
+      </ul>
+      </small>
+    {% else %}
+      <small id="authorHelpBlock" class="form-text text-muted">Používateľské mená musia byť unikátne</small>
+      <br>
+    {% endif %}
+    <div class="field form-group row {% if form.password.errors %}has-danger{% endif %}">
+      <label for="id_password" class="col-2 col-form-label">Heslo:</label>
+      {{ form.password }}
+    </div>
+    {% if form.password.errors %}
+      <small class="text-danger">
+      <ul class="list-unstyled">
+      {% for error in form.password.errors %}
+          <li>{{ error }}</li>
+      {% endfor %}
+      </ul>
+      </small>
+    {% endif %}
+    <div class="field form-group row {% if form.meno.errors %}has-danger{% endif %}">
+      <label for="id_meno" class="col-2 col-form-label">Meno:</label>
+      {{ form.meno }}
+    </div>
+    {% if form.meno.errors %}
+      <small class="text-danger">
+      <ul class="list-unstyled">
+      {% for error in form.meno.errors %}
+          <li>{{ error }}</li>
+      {% endfor %}
+      </ul>
+      </small>
+    {% endif %}
+    <div class="field form-group row {% if form.priezvisko.errors %}has-danger{% endif %}">
+      <label for="id_priezvisko"  class="col-2 col-form-label">Priezvisko:</label>
+      {{ form.priezvisko }}
+    </div>
+    {% if form.priezvisko.errors %}
+      <small class="text-danger">
+      <ul class="list-unstyled">
+      {% for error in form.priezvisko.errors %}
+          <li>{{ error }}</li>
+      {% endfor %}
+      </ul>
+      </small>
+    {% endif %}
+    <div class="field form-group row {% if form.email.errors %}has-danger{% endif %}" >
+      <label for="id_email" class="col-2 col-form-label">E-mail:</label>
+      {{ form.email }}
+    </div>
+    {% if form.email.errors %}
+      <small class="text-danger">
+      <ul class="list-unstyled">
+      {% for error in form.email.errors %}
+          <li>{{ error }}</li>
+      {% endfor %}
+      </ul>
+      </small>
+    {% endif %}
+    <button class="btn btn-outline-success" type="submit">Vytvorit Konto</button>
+  </form>
+  <hr>
+  <h5>Ak už máš konto, prihlás sa <a href="/login">tu</a></h5>
+{% endblock %}

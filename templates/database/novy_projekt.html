@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %} Vytvoriť Nový Projekt {% endblock %}
+
+{% block content %}
+<h1>Nový Projekt</h1>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="field form-group row">
+      {{ form.nazov.errors }}
+      <label for="id_username" class="col-2 col-form-label">Názov projektu:</label>
+      {{ form.nazov }}
+    </div>
+    <div class="field form-group row">
+      {{ form.autor1.errors }}
+      <label for="id_autor1" class="col-2 col-form-label">Autor č.1:</label>
+      {{ form.autor1 }}
+    </div>
+    <div class="field form-group row">
+      {{ form.autor2.errors }}
+      <label for="id_autor2" class="col-2 col-form-label">Autor č.2:</label>
+      {{ form.autor2 }}
+    </div>
+    <div class="field form-group row">
+      {{ form.autor3.errors }}
+      <label for="id_autor3" class="col-2 col-form-label">Autor č.3:</label>
+      {{ form.autor3 }}
+    </div>
+    <div class="field form-group row">
+      {{ form.konzultant.errors }}
+      <label for="id_konzultant" class="col-2 col-form-label">Konzultant:</label>
+      {{ form.konzultant }}
+    </div>
+    <div class="field form-group row">
+      {{ form.projekt.errors }}
+      <label for="id_projekt" class="col-2 col-form-label">Projekt:</label>
+      {{ form.projekt }}
+    </div>
+    <div class="field form-group row">
+      {{ form.popis.errors }}
+      <label for="id_popis" class="col-2 col-form-label">Popis:</label>
+      {{ form.popis }}
+    </div>
+    <button class="btn btn-outline-success" type="submit">Vytvoriť</button>
+  </form>
+
+{% endblock %}

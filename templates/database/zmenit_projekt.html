@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %} Upraviť Projekt {% endblock %}
+
+{% block content %}
+<h1>{{ nazov }}</h1>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="field form-group row">
+      <label for="id_name" class="col-2 col-form-label">Názov projektu:</label>
+      {{ form.nazov }}
+    </div>
+    {% if form.nazov.errors %}
+      <small class="text-danger">
+      <ul class="list-unstyled">
+      {% for error in form.nazov.errors %}
+          <li>{{ error }}</li>
+      {% endfor %}
+      </ul>
+      </small>
+    {% endif %}
+    <div class="field form-group row">
+      <label for="id_autor1" class="col-2 col-form-label">Autor č.1:</label>
+      {{ form.autor1 }}
+    </div>
+    {% if form.autor1.errors %}
+      <small class="text-danger">
+      <ul class="list-unstyled">
+      {% for error in form.autor1.errors %}
+          <li>{{ error }}</li>
+      {% endfor %}
+      </ul>
+      </small>
+    {% endif %}
+    <div class="field form-group row">
+      <label for="id_autor2" class="col-2 col-form-label">Autor č.2:</label>
+      {{ form.autor2 }}
+    </div>
+    {% if form.autor2.errors %}
+      <small class="text-danger">
+      <ul class="list-unstyled">
+      {% for error in form.autor2.errors %}
+          <li>{{ error }}</li>
+      {% endfor %}
+      </ul>
+      </small>
+    {% endif %}
+    <div class="field form-group row">
+      <label for="id_autor3" class="col-2 col-form-label">Autor č.3:</label>
+      {{ form.autor3 }}
+    </div>
+    {% if form.autor3.errors %}
+      <small class="text-danger">
+      <ul class="list-unstyled">
+      {% for error in form.autor3.errors %}
+          <li>{{ error }}</li>
+      {% endfor %}
+      </ul>
+      </small>
+    {% endif %}
+    <div class="field form-group row">
+      <label for="id_konzultant" class="col-2 col-form-label">Konzultant:</label>
+      {{ form.konzultant }}
+    </div>
+    {% if form.konzultant.errors %}
+      <small class="text-danger">
+      <ul class="list-unstyled">
+      {% for error in form.konzultant.errors %}
+          <li>{{ error }}</li>
+      {% endfor %}
+      </ul>
+      </small>
+    {% endif %}
+    <small id="authorHelpBlock" class="form-text text-muted">Do kolóniek vložte používateľské mená želaných autorov</small>
+    <br>
+    <div class="field form-group row">
+      <label for="id_popis" class="col-2 col-form-label">Popis:</label>
+      {{ form.popis }}
+    </div>
+    {% if form.popis.errors %}
+      <small class="text-danger">
+      <ul class="list-unstyled">
+      {% for error in form.popis.errors %}
+          <li>{{ error }}</li>
+      {% endfor %}
+      </ul>
+      </small>
+    {% else %}
+      <small id="authorHelpBlock" class="form-text text-muted">Maximálne 1000 znakov</small>
+      <br>
+    {% endif %}
+    <button class="btn btn-outline-success" type="submit">{{ tlacidlo }}</button>
+  </form>
+{% endblock %}

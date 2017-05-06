@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %} {{ project.title }} {% endblock %}
+
+{% block content %}
+
+  <h1>{{ project.title }}</h1>
+  <hr>
+  <dl class="row">
+    <dt class="col-sm-3 text-truncate">Id projektu:</dt>
+    <dd class="col-sm-9">{{ project.id }}</dd>
+
+    <dt class="col-sm-3">Autori:</dt>
+      <dd class="col-sm-9">
+        <ul class="list-unstyled">
+          {% for author in project.authors.all %}
+            <li>{{ author.get_full_name }}</li>
+          {% endfor %}
+        </ul>
+      </dd>
+
+    <dt class="col-sm-3">Konzultant:</dt>
+    <dd class="col-sm-9">{% if project.consultant %}{{ project.consultant.get_full_name }}{% endif %}</dd>
+
+    <dt class="col-sm-3">Oponent:</dt>
+    <dd class="col-sm-9">{% if project.oponent %}{{ project.oponent.get_full_name }}{% endif %}</dd>
+
+    <dt class="col-sm-3 text-truncate">Rok:</dt>
+    <dd class="col-sm-9">{{ project.registration_date.year }}</dd>
+
+  </dl>
+
+  {% if project.description %}
+    <h3>Popis projektu:</h3>
+    <hr>
+    <p> {{ project.description }}</p>
+  {% endif %}
+  {% if not project.document == None %}
+    <a class="btn btn-info my-2 my-sm-0" href="{{ project.document.dokument.url }}">Stiahnuť Projekt</a>
+  {% endif %}
+  {% if user in project.authors.all %}
+    <a class="btn btn-warning my-2 my-sm-0" href="/database/projekty/{{ project.id }}/zmen">Upraviť Projekt</a>
+    <br>
+    <br>
+    <h3>Pridať novú verziu projektu</h3>
+    <hr>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ dokument.as_p }}
+      <small class="form-text text-muted">Projekty musia byť vo rormáte <i>.doc</i> alebo <i>.pdf</i></small>
+      <br>
+      <button class="btn btn-outline-success" type="submit">Pridať</button>
+    </form>
+    <br>
+  {% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Databaza{% endblock %}
+
+{% block content %}
+
+    {% if konzultovane == None and napisane == None %}
+          <p class="lead">Ľutujeme, ale hľadaný projekt neexistuje</p>
+    {% else %}
+      {% if konzultovane %}
+        <h3>Konzultované projekty:</h3>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Názov</th>
+              <th>Autori</th>
+              <th>Konzultant</th>
+              <th>Rok</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for records in konzultovane %}
+              <tr>
+              <td>{{ records.id }}</td>
+                <td> <a href='/database/projekty/{{ records.id }}'>{{ records.title }}</a></td>
+                <td>
+                  <ul class="list-unstyled">
+                    {% for author in records.authors.all %}
+                      <li>{{ author.get_full_name }}</li>
+                    {% endfor %}
+                  </ul>
+                </td>
+                <td>{{ records.consultant.get_full_name }}</td>
+                <td>{{ records.registration_date.year }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+
+      {% if napisane %}
+        <h3>Napísané projekty:</h3>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Názov</th>
+              <th>Autori</th>
+              <th>Konzultant</th>
+              <th>Rok</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for records in napisane %}
+              <tr>
+              <td>{{ records.id }}</td>
+                <td> <a href='/database/projekty/{{ records.id }}'>{{ records.title }}</a></td>
+                <td>
+                  <ul class="list-unstyled">
+                    {% for author in records.authors.all %}
+                      <li>{{ author.get_full_name }}</li>
+                    {% endfor %}
+                  </ul>
+                </td>
+                <td>{{ records.consultant.get_full_name }}</td>
+                <td>{{ records.registration_date.year }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+    {% endif %}
+
+    {% if not napisane and not konzultovane %}
+      <h4>Zatiaľ si sa nepodielal/a na žiadnej práci v databáze</h4>
+      <p>Nevadí, nový projekt môžeš vytvoriť tu:</p>
+      <a class="btn btn-lg btn-info my-2 my-sm-0" href="/database/novy">Vytvoriť nový projekt!</a>
+    {% endif %}
+
+
+{% endblock %}

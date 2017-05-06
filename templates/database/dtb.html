@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Databaza{% endblock %}
+
+{% block content %}
+    <ul class="nav">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Zoradiť podľa</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="/database/zorad/id">Id - Vzostupne</a>
+          <a class="dropdown-item" href="/database/zorad/nid">Id - Zostupne</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/database/zorad/rok">Najnovsie</a>
+          <a class="dropdown-item" href="/database/zorad/nrok">Najstarsie</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/database/zorad/nazov">A-Z</a>
+          <a class="dropdown-item" href="/database/zorad/nnazov">Z-A</a>
+        </div>
+      </li>
+      <a class="nav-link" href="/database/novy">Vytvoriť Projekt</a>
+    </ul>
+    {% if database == None %}
+          <p class="lead">Ľutujeme, ale hľadaný projekt neexistuje</p>
+    {% else %}
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Názov</th>
+            <th>Autori</th>
+            <th>Konzultant</th>
+            <th>Rok</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for records in database %}
+            <tr>
+            <td>{{ records.id }}</td>
+              <td> <a href='/database/projekty/{{ records.id }}'>{{ records.title }}</a></td>
+              <td>
+                <ul class="list-unstyled">
+                  {% for author in records.authors.all %}
+                    <li>{{ author.get_full_name }}</li>
+                  {% endfor %}
+                </ul>
+              </td>
+              <td>{{ records.consultant.get_full_name }}</td>
+              <td>{{ records.registration_date.year }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+
+
+
+{% endblock %}
